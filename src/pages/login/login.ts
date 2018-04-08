@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { PerfilPage } from '../perfil/perfil';
 
 @IonicPage()
 @Component({
@@ -30,7 +31,7 @@ export class LoginPage {
       if (res.erro) {
         this.presentToast(res.erro);
       } else {
-        this.navCtrl.setRoot('page-home');
+        this.navCtrl.setRoot(PerfilPage);
       }
     });
   }

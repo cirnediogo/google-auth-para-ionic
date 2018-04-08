@@ -9,6 +9,8 @@ const PATH_UID:string = 'user_uid';
 @Injectable()
 export class AuthProvider {
 
+  private user: any;
+
   constructor(
     private googleAuth: GoogleAuthProvider,
     private storage: Storage,
@@ -31,7 +33,10 @@ export class AuthProvider {
 
   logout(callback) {
     this.googleAuth.logout(res => {
-      this.events.publish('user:signedout');
+      if (!res.erro) {
+        this.saveUserState(null, null);
+        this.events.publish('user:signedout');
+      }
       callback(res);
     });
   }
@@ -46,8 +51,15 @@ export class AuthProvider {
 
   saveUserState(user?: any, token?: string) {
     if (!user) {
+      this.user = null;
       this.setStoredUid(null).then().catch();
     } else {
+      this.user = {
+        uid: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        email: user.email
+      }
       this.setStoredUid(user.uid).then().catch();
     }
   }
@@ -58,7 +70,7 @@ export class AuthProvider {
   }
 
   getUser() {
-    return this.googleAuth.getUser();
+    return this.user;
   }
 
   setStoredUid(uid: string): Promise<any> {

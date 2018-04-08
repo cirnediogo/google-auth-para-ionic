@@ -8,8 +8,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { PerfilPage } from '../pages/perfil/perfil';
 import { AuthProvider } from '../providers/auth/auth';
 import { GoogleAuthProvider } from '../providers/auth/google-auth';
 
@@ -17,8 +17,8 @@ import { GoogleAuthProvider } from '../providers/auth/google-auth';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage
+    LoginPage,
+    PerfilPage
   ],
   imports: [
     BrowserModule,
@@ -29,8 +29,8 @@ import { GoogleAuthProvider } from '../providers/auth/google-auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LoginPage
+    LoginPage,
+    PerfilPage
   ],
   providers: [
     AuthProvider,

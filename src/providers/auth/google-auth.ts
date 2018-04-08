@@ -96,8 +96,6 @@ export class GoogleAuthProvider {
   }
 
   logout(callback) {
-    this.user = null;
-    this.token = null;
     if (this.platform.is('cordova')) {
       this.googlePlus.logout().then(() => {
         this.logoutFromFirebase(callback);
@@ -112,6 +110,8 @@ export class GoogleAuthProvider {
 
   logoutFromFirebase(callback) {
     firebase.auth().signOut().then(() => {
+      this.user = null;
+      this.token = null;
       callback({ 'ok': true });
     }).catch(error => {
       console.error('logout error:', error);

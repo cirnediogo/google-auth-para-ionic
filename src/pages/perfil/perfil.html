@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item no-lines center>
+    <ion-avatar large>
+      <img [src]='user?.photoURL'>
+    </ion-avatar>
+    <h2>{{ user?.displayName }}</h2>
+    <p>{{ user?.email }}</p>
+    <p small>{{ user?.uid }}</p>
+  </ion-item>
+
+  <button ion-button full (click)="logout()">Sair</button>
+
+</ion-content>
