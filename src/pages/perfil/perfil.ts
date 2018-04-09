@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
+import { User } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,7 @@ import { LoginPage } from '../login/login';
 })
 export class PerfilPage {
 
-  user: any;
+  user: User;
 
   constructor(
     public navCtrl: NavController,
@@ -23,12 +24,11 @@ export class PerfilPage {
   }
 
   ionViewWillUnload() {
-    this.user = null;
+    this.user = new User();
   }
   
   logout() {
     this.auth.logout(res => {
-      this.user = this.auth.getUser();
       if (!res.error) {
         this.navCtrl.setRoot(LoginPage);
       }

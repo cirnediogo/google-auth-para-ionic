@@ -3,13 +3,14 @@ import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular/util/events';
 
 import { GoogleAuthProvider } from './google-auth';
+import { User } from '../../models/user';
 
 const PATH_UID:string = 'user_uid';
 
 @Injectable()
 export class AuthProvider {
 
-  private user: any;
+  private user: User;
 
   constructor(
     private googleAuth: GoogleAuthProvider,
@@ -50,23 +51,21 @@ export class AuthProvider {
   }
 
   saveUserState(user?: any, token?: string) {
+    this.user = new User();
     if (!user) {
-      this.user = null;
       this.setStoredUid(null).then().catch();
     } else {
-      this.user = {
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        email: user.email
-      }
+      this.user.uid = user.uid;
+      this.user.displayName = user.displayName;
+      this.user.photoURL = user.photoURL;
+      this.user.email = user.email;
+      this.user.idToken = token;
       this.setStoredUid(user.uid).then().catch();
     }
   }
 
   isSignedIn(): boolean {
-    var user = this.googleAuth.getUser();
-    return (user != null && user.uid != null && user.uid != "");
+    return (this.user != null && this.user.uid != null);
   }
 
   getUser() {
