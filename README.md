@@ -1,8 +1,8 @@
 Tut: https://www.joshmorony.com/implementing-google-plus-sign-in-with-oauth-2-0-in-ionic-2/
 
-    keytool -genkey -v -keystore debug.keystore -alias google-auth-for-ionic -keyalg RSA -keysize 2048 -validity 10000
+    keytool -genkey -v -keystore release.keystore -alias releasekey -keyalg RSA -keysize 2048 -validity 10000
     
-    keytool -exportcert -list -v -alias google-auth-for-ionic -keystore debug.keystore
+    keytool -exportcert -list -v -alias releasekey -keystore release.keystore
 
 Adicionar o Firebase ao seu app
 
@@ -31,3 +31,13 @@ Adicionar ao app.component.ts:
 
     firebase.initializeApp(config.firebase);
 
+Criar arquivo debug-signing.properties em platforms/android:
+
+    keyAlias=releasekey
+    keyPassword=<KEYSTORE_PASSWORD>
+    storeFile=release.keystore
+    storePassword=<KEYSTORE_PASSWORD>
+
+Atualizar o cordova:
+
+    ionic cordova prepare
