@@ -1,8 +1,8 @@
 {
   "name": "google-auth-for-ionic",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "version": "0.1.0",
+  "author": "Diogo Cirne",
+  "homepage": "https://github.com/cirnediogo/google-auth-para-ionic.git",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -45,7 +45,7 @@
     "@ionic/app-scripts": "3.1.8",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project",
+  "description": "A project to show how to include google authentication in an Ionic 3 app.",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

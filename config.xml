@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.cirnediogo.googleauthforionic" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>google-auth-for-ionic</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://10.0.0.159:8100" />
+<widget id="me.cirnediogo.googleauthforionic" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Google Auth for Ionic</name>
+    <description>A project to show how to include google authentication in an Ionic 3 app.</description>
+    <author email="cirnediogo@gmail.com" href="https://github.com/cirnediogo">Diogo Cirne</author>
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

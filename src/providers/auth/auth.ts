@@ -24,8 +24,12 @@ export class AuthProvider {
         this.googleAuth.init(storedUid, 
           resInit => this.handleGoogleLogin(resInit, callback)
         );
+      } else {
+        callback({});
       }
-    }).catch(() => { })
+    }).catch(() => {
+      callback({});
+    })
   }
 
   loginWithGoogle(callback) {

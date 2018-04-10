@@ -6,14 +6,21 @@ import * as firebase from 'firebase';
 
 import { LoginPage } from '../pages/login/login';
 import config from '../project-specific-config.json';
+import { AuthProvider } from '../providers/auth/auth';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage;
+  rootPage:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(
+    platform: Platform, 
+    statusBar: StatusBar, 
+    splashScreen: SplashScreen,
+    auth: AuthProvider
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -21,7 +28,15 @@ export class MyApp {
 
       firebase.initializeApp(config.firebase);
 
-      splashScreen.hide();
+      auth.init(res => {
+        if (auth.isSignedIn()) {
+          this.rootPage = PerfilPage;
+        } else {
+          this.rootPage = LoginPage;
+        }
+        splashScreen.hide();
+      })
+
 
     });
   }
