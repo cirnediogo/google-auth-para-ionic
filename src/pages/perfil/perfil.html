@@ -4,17 +4,22 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-  <ion-item no-lines center>
-    <ion-avatar large>
-      <img [src]='user?.photoURL'>
-    </ion-avatar>
-    <h2>{{ user?.displayName }}</h2>
-    <p>{{ user?.email }}</p>
-    <p small>{{ user?.uid }}</p>
-  </ion-item>
-
-  <button ion-button full (click)="logout()">Sair</button>
+  <ion-card>
+    <img [src]='user?.photoURL' />
+    <ion-card-content>
+      <ion-card-title> {{ user?.displayName }} </ion-card-title>
+      <p> {{ user?.email }} </p>
+      <p> {{ user?.uid }} </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col text-center>
+        <button ion-button clear color="danger" (click)="logout()">
+          Sair
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
 </ion-content>
