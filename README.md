@@ -4,21 +4,21 @@ Este manual descreve os passos a serem executados para adicionar a autenticaçã
 
 # Sumário
 
-* 1\. [Configuração no Firebase](#1-configuração-no-firebase)
-  * 1.1\. [Gerar o arquivo `.keystore`](#11-gerar-o-arquivo-keystore)
-  * 1.2\. [Obter a chave SHA-1](#12-obter-a-chave-sha-1)
-  * 1.3\. [Criar o projeto no Firebase](#13-criar-o-projeto-no-firebase)
-  * 1.4\. [Habilitar a autenticação via Google](#14-habilitar-a-autenticação-via-google)
-  * 1.5\. [Obter dados de configuração do projeto](#15-obter-dados-de-configuração-do-projeto)
-* 2\. [Configuração no código](#2-configuração-no-código)
-  * 2.1\. [Instalar o módulo do Firebase](#21-instalar-o-módulo-do-firebase)
-  * 2.2\. [Importar configurações](#22-importar-configurações)
-  * 2.3\. [Configurar o `keystore` no *cordova*](#23-configurar-o-keystore-no-cordova)
-  * 2.4\. [Instalar o plugin do Google Plus](#24-instalar-o-plugin-do-google-plus)
-* 3\. [Programação](#3-programação)
-  * 3.1\. [Criando a rotina de login](#31-criando-a-rotina-de-login)
-  * 3.2\. [Criando o logout](#32-criando-o-logout)
-  * 3.3\. [Criando a autenticação automática](#33-criando-a-autenticação-automática)
+* [1. Configuração no Firebase](#1-configuração-no-firebase)
+  * [1.1. Gerar o arquivo `.keystore`](#11-gerar-o-arquivo-keystore)
+  * [1.2. Obter a chave SHA-1](#12-obter-a-chave-sha-1)
+  * [1.3. Criar o projeto no Firebase](#13-criar-o-projeto-no-firebase)
+  * [1.4. Habilitar a autenticação via Google](#14-habilitar-a-autenticação-via-google)
+  * [1.5. Obter dados de configuração do projeto](#15-obter-dados-de-configuração-do-projeto)
+* [2. Configuração no código](#2-configuração-no-código)
+  * [2.1. Instalar o módulo do Firebase](#21-instalar-o-módulo-do-firebase)
+  * [2.2. Importar configurações](#22-importar-configurações)
+  * [2.3. Configurar o `keystore` no *cordova*](#23-configurar-o-keystore-no-cordova)
+  * [2.4. Instalar o plugin do Google Plus](#24-instalar-o-plugin-do-google-plus)
+* [3. Programação](#3-programação)
+  * [3.1. Criando a rotina de login](#31-criando-a-rotina-de-login)
+  * [3.2. Criando o logout](#32-criando-o-logout)
+  * [3.3. Criando a autenticação automática](#33-criando-a-autenticação-automática)
 
 # 1. Configuração no Firebase
 
