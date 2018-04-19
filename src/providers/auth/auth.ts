@@ -36,10 +36,8 @@ export class AuthProvider {
 
   logout(callback) {
     this.googleAuth.logout(res => {
-      if (!res.erro) {
-        this.saveUserState(null, null);
-        this.events.publish('user:signedout');
-      }
+      this.saveUserState(null, null);
+      this.events.publish('user:signedout');
       callback(res);
     });
   }

@@ -1,7 +1,24 @@
-
 # Descrição
 
 Este manual descreve os passos a serem executados para adicionar a autenticação via Google em um aplicativo Android desenvolvido em Ionic 3.
+
+# Sumário
+
+1. [Configuração no Firebase](#1-configuração-no-firebase)
+  1.1. [Gerar o arquivo `.keystore`](#11-gerar-o-arquivo-keystore)
+  1.2. [Obter a chave SHA-1](#12-obter-a-chave-sha-1)
+  1.3. [Criar o projeto no Firebase](#13-criar-o-projeto-no-firebase)
+  1.4. [Habilitar a autenticação via Google](#14-habilitar-a-autenticação-via-google)
+  1.5. [Obter dados de configuração do projeto](#15-obter-dados-de-configuração-do-projeto)
+2. [Configuração no código](#2-configuração-no-código)
+  2.1. [Instalar o módulo do Firebase](#21-instalar-o-módulo-do-firebase)
+  2.2. [Importar configurações](#22-importar-configurações)
+  2.3. [Configurar o `keystore` no *cordova*](#23-configurar-o-keystore-no-cordova)
+  2.4. [Instalar o plugin do Google Plus](#24-instalar-o-plugin-do-google-plus)
+3. [Programação](#3-programação)
+  3.1. [Criando a rotina de login](#31-criando-a-rotina-de-login)
+  3.2. [Criando o logout](#32-criando-o-logout)
+  3.3. [Criando a autenticação automática](#33criando-a-autenticação-automática)
 
 # 1. Configuração no Firebase
 
@@ -13,7 +30,7 @@ Para habilitar a autenticação via Google no Android, é necessário gerar o "c
 keytool -genkey -v -keystore meu-app.keystore -alias meu-app-cert -keyalg RSA -keysize 2048 -validity 10000
 ```
 
-obs.: substitua `meu-app.keystore` e `meu-app-cert` pelo que você achar melhor.
+> obs.: substitua `meu-app.keystore` e `meu-app-cert` pelo que você achar melhor.
 
 Ao executar o comando, você deverá responder uma séria de perguntas e definir uma senha. Este arquivo `.keystore`, juntamente com a senha, serão utilizados futuramente para colocar o aplicativo na *Play Store*.
 
@@ -25,7 +42,7 @@ Em seguida, execute o seguinte comando (utilize os mesmos nomes que você utiliz
 keytool -exportcert -list -v -alias meu-app-cert -keystore meu-app.keystore
 ```
 
-obs.: A depender da versão do `keytool` instalada, a opção `-exportcert` poderá se chamar apenas `-export`.
+> obs.: A depender da versão do `keytool` instalada, a opção `-exportcert` poderá se chamar apenas `-export`.
 
 Ao executar o comando acima, procure no console, uma linha como a seguinte:
 
@@ -51,15 +68,15 @@ Copie-o para utulizá-lo futuramente, no código.
 
 ### 1.5. Obter dados de configuração do projeto
 
-Para concluir a configuração do projeto no Firebase, volte à página principal (*Project Overview*), clique em *Add Another App* e em *Add Firebase to your web app*, e copie os dados de configuração que serão mostrados no seguinte formato:
+Para concluir a configuração do projeto no Firebase, ainda na página *Authentication* do *Firebase Console*, clique em *Web Setup* no canto superior direito e copie os dados de configuração que serão mostrados no seguinte formato:
 
 ```json
 var config = {
-    apiKey: "<API_KEY>",
-    authDomain: "<PROJECT_ID>.firebaseapp.com",
-    databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-    projectId: "<PROJECT_ID>",
-    storageBucket: "<BUCKET>.appspot.com"
+    "apiKey": "<API_KEY>",
+    "authDomain": "<PROJECT_ID>.firebaseapp.com",
+    "databaseURL": "https://<DATABASE_NAME>.firebaseio.com",
+    "projectId": "<PROJECT_ID>",
+    "storageBucket": "<BUCKET>.appspot.com"
 };
 ```
 
@@ -94,7 +111,7 @@ Crie um arquivo `project-config.json` em `/src/` (ou em outro diretório de sua 
 }
 ```
 
-obs.: se preferir, essas informações podem ser definidas no próprio código onde serão utilizadas, sem que precise ser criado um arquivo separado para isso, no entanto, é aconselhável fazer dessa forma por motivos de organização e baixo acoplamento.
+> obs.: se preferir, essas informações podem ser definidas no próprio código onde serão utilizadas, sem que precise ser criado um arquivo separado para isso, no entanto, é aconselhável fazer dessa forma por motivos de organização e baixo acoplamento.
 
 Agora, no `app.component.ts`, importe as configurações:
 
@@ -103,21 +120,21 @@ Agora, no `app.component.ts`, importe as configurações:
 import * as firebase from 'firebase';
 import config from '../project-config.json';
 ...
-    this.platform.ready().then(() => {
-        ...
-        firebase.initializeApp(config.firebase);
-        ...
-    });
+  this.platform.ready().then(() => {
+    ...
+    firebase.initializeApp(config.firebase);
+    ...
+  });
 ```
 
 Isso fará com que o app se conecte ao projeto criado anteriormente no Firebase.
 
-obs.: caso o arquivo `project-config.json` não seja reconhecido, adicione um outro arquivo, chamado `typings.d.ts` na pasta `/src/` com o seguinte conteúdo:
+> obs.: caso o arquivo `project-config.json` não seja reconhecido, adicione um outro arquivo, chamado `typings.d.ts` na pasta `/src/` com o seguinte conteúdo:
 
 ```typescript
 declare module "*.json" {
-    const value: any;
-    export default value;
+  const value: any;
+  export default value;
 }
 ```
 
@@ -140,7 +157,7 @@ storeFile=meu-app.keystore
 storePassword=*************
 ```
 
-obs.: o `keyAlias` e o `storefile` devem possuir os mesmos nomes utilizados nas sessões 1.1 e 1.2, enquanto que `keyPassword` e `storePassword` devem possuir a senha criada na sessão 1.1 (se você criou senhas diferentes, insira as duas, senão, repita a mesma senha nos dois campos).
+> obs.: o `keyAlias` e o `storefile` devem possuir os mesmos nomes utilizados nas sessões 1.1 e 1.2, enquanto que `keyPassword` e `storePassword` devem possuir a senha criada na sessão 1.1 (se você criou senhas diferentes, insira as duas, senão, repita a mesma senha nos dois campos).
 
 Este arquivo e o arquivo `.keystore` criado na sessão 1.1 devem estar presentes na pasta `/platforms/android/`, no entanto, sempre que for necessário adicionar a platforma novamente, eles serão exlcluídos, portanto uma sugestão é colocá-los em algum diretório do projeto e copiá-los para `/platforms/android/` sempre que a plataforma android for adicionada. Se necessário, pode-se fazer um script para copiá-los automaticamente.
 
@@ -181,35 +198,35 @@ O `login.ts` contém apenas o método responsável por chamar a rotina de login 
 
 ```typescript
 export class LoginPage {
-	constructor(
-		public navCtrl: NavController,
-		public navParams: NavParams,
-		private loadingCtrl: LoadingController,
-		private toastCtrl: ToastController,
-		private auth: AuthProvider
-	) { }
-	login() {
-		let loader = this.loadingCtrl.create({
-			content: "Efetuando login. Aguarde..."
-		});
-		loader.present();
-		this.auth.loginWithGoogle(res => {
-			loader.dismiss();
-			if (res.erro) {
-				this.presentToast(res.erro);
-			} else {
-				this.navCtrl.setRoot(PerfilPage);
-			}
-		});
-	}
-	presentToast(text) {
-		let toast = this.toastCtrl.create({
-			message: text,
-			duration: 3000,
-			position: 'bottom'
-		});
-		toast.present();
-	}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
+    private auth: AuthProvider
+  ) { }
+  login() {
+    let loader = this.loadingCtrl.create({
+      content: "Efetuando login. Aguarde..."
+    });
+    loader.present();
+    this.auth.loginWithGoogle(res => {
+      loader.dismiss();
+      if (res.erro) {
+        this.presentToast(res.erro);
+      } else {
+        this.navCtrl.setRoot(PerfilPage);
+      }
+    });
+  }
+  presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
 }
 ```
 
@@ -304,7 +321,6 @@ export class GoogleAuthProvider {
   private user: firebase.User;
   private token: any;
   constructor(
-    public http: HttpClient,
     public platform: Platform,
     private googlePlus: GooglePlus
   ) {}
@@ -410,9 +426,11 @@ Na inicialização do aplicativo, é necessário estabelecer `LoginPage` como a 
 
 ```typescript
 ...
+import { LoginPage } from '../pages/login/login';
+...
 export class MyApp {
   ...
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
   ...
 }
 ```
@@ -445,3 +463,128 @@ providers: [
 ```
 
 Por fim, o aplicativo já pode ser excutado, tanto no navegador quanto em um dispositivo Android, e o login deverá funcionar sem problemas. 
+
+### 3.2. Criando o logout
+
+Para criar a opção de logout, vamos voltar ao `perfil.html` e adicionar um botão:
+
+```html
+<ion-content>
+  <ion-card>
+    <img ... />
+    <ion-card-content>
+      ...
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col text-center>
+        <button ion-button clear color="danger" (click)="logout()">
+          Sair
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
+```
+
+Em `perfil.ts`, precisamos criar o método `logout()`, que fará a requisição de logout ao `AuthProvider` e redirecionará o app para a página de login novamente.
+
+```typescript
+logout() {
+  this.auth.logout(res => {
+    this.navCtrl.setRoot(LoginPage);
+  })
+}
+```
+
+O `AuthProvider`, por sua vez, irá emcaminhar a requisição ao `GoogleAuthProvider` e resetar as informações do usuário em cache. Para isso, adicione o seguinte método em `auth.ts`:
+
+```typescript
+logout(callback) {
+  this.googleAuth.logout(res => {
+    this.saveUserState(null, null);
+    callback(res);
+  });
+}
+```
+
+O `GoogleAuthProvider` fará o logout do usuário no firebase e, se estiver sendo executado em um dispositivo móvel, no plugin do Google Plus. Adicione o seguinte código em `google-auth.ts`:
+
+```typescript
+logout(callback) {
+  if (this.platform.is('cordova')) {
+    this.googlePlus.logout().then(() => {
+      this.logoutFromFirebase(callback);
+    }).catch(error => {
+      callback({ 'erro': error });
+    });
+  } else {
+    this.logoutFromFirebase(callback);
+  }
+}
+logoutFromFirebase(callback) {
+  firebase.auth().signOut().then(() => {
+    this.user = null;
+    this.token = null;
+    callback({ 'ok': true });
+  }).catch(error => {
+    callback({ 'erro': error });
+  });
+}
+```
+
+Com isso, o app estará pronto para fazer login e logout.
+
+### 3.3. Criando a autenticação automática
+
+A autenticação do Google, como a maioria dos métodos de autenticação atuais, funciona por meio de token, o que significa que, uma vez feito o login, o token pode ser frequentemente atualizado para manter a "sessão" do usuário ativa quando necessário. Com isso, enquanto o usuário não fizer o logout, o firebase nos permite autenticar o usuário assim que o app for acessado.
+
+Para fazer isso, vamos criar uma rotina de inicialização no `AuthProvider`. Este método irá obter o `uid` do usuário do `storage` e fazer o procedimento de autenticação semelhante a quando é feito o login. Perceba que este método deve ser inicializado juntamente com o app e, se o usuário tiver feito o logout anteriormente, o `uid` não existirá no `storage` e, consequentemente, a autenticação não será feita. Para criar esta rotina, adicione o método `init()` em `auth.ts`:
+
+```typescript
+init(callback) {
+  this.getStoredUid().then(storedUid => {
+    if (storedUid) {
+      this.googleAuth.init(storedUid, 
+        res => this.handleGoogleLogin(res, callback)
+      );
+    } else {
+      callback({});
+    }
+  }).catch(() => {
+    callback({});
+  })
+}
+```
+
+Também será necessário criar o método `init()` em `google-auth.ts`:
+
+```typescript
+init(uid, callback) {
+  this.handleLoginResponse({ 'uid': uid }, callback);
+}
+```
+
+E, por fim, a inicialização da autenticação deverá ser acionada no `app.component.ts`:
+
+```typescript
+...
+import { PerfilPage } from '../pages/perfil/perfil';
+import { AuthProvider } from '../providers/auth/auth';
+...
+  this.platform.ready().then(() => {
+    ...
+    firebase.initializeApp(config.firebase);
+    this.auth.init(res => {
+      if (this.auth.isSignedIn()) {
+        this.rootPage = PerfilPage;
+      } else {
+        this.rootPage = LoginPage;
+      }
+      this.splashScreen.hide();
+    });
+  });
+```
+
+Quando o app é iniciado, a rotina de autenticação automática do `AuthProvider` será executada. Então verifica-se se há algum usuário conectado, em caso positivo, será aberta a página de perfil, caso contrário, o usuário será direcionado à página de login.
+
+Para testar esta funcionalidade execute o app, faça o login, feche-o (sem fazer o logout) e abra-o novamente, você verá que a sua conta ainda estará autenticada.
