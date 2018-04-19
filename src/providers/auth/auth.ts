@@ -5,7 +5,7 @@ import { Events } from 'ionic-angular/util/events';
 import { GoogleAuthProvider } from './google-auth';
 import { User } from '../../models/user';
 
-const PATH_UID:string = 'user_uid';
+const PATH_UID: string = 'auth_for_ionic_user_uid';
 
 @Injectable()
 export class AuthProvider {
@@ -21,9 +21,7 @@ export class AuthProvider {
   init(callback) {
     this.getStoredUid().then(storedUid => {
       if (storedUid) {
-        this.googleAuth.init(storedUid, 
-          resInit => this.handleGoogleLogin(resInit, callback)
-        );
+        this.googleAuth.init(storedUid, res => this.handleGoogleLogin(res, callback));
       } else {
         callback({});
       }

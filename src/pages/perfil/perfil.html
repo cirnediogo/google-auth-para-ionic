@@ -7,11 +7,11 @@
 <ion-content>
 
   <ion-card>
-    <img [src]='user?.photoURL' />
+    <img [src]='auth.user?.photoURL' />
     <ion-card-content>
-      <ion-card-title> {{ user?.displayName }} </ion-card-title>
-      <p> {{ user?.email }} </p>
-      <p> {{ user?.uid }} </p>
+      <ion-card-title> {{ auth.user?.displayName }} </ion-card-title>
+      <p> {{ auth.user?.email }} </p>
+      <p> {{ auth.user?.uid }} </p>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col text-center>
@@ -21,5 +21,5 @@
       </ion-col>
     </ion-row>
   </ion-card>
-
+  
 </ion-content>

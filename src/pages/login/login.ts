@@ -18,7 +18,7 @@ export class LoginPage {
     public navParams: NavParams,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private authProvider: AuthProvider
+    private auth: AuthProvider
   ) { }
 
   login() {
@@ -26,7 +26,7 @@ export class LoginPage {
       content: "Efetuando login. Aguarde..."
     });
     loader.present();
-    this.authProvider.loginWithGoogle(res => {
+    this.auth.loginWithGoogle(res => {
       loader.dismiss();
       if (res.erro) {
         this.presentToast(res.erro);
